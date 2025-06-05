@@ -17,4 +17,8 @@
     <ProjectReference Include="..\AppCleanProject.Domain\AppCleanProject.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Features\FSpecialties\" />
+  </ItemGroup>
+
 </Project>
