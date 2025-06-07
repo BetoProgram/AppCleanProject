@@ -19,6 +19,8 @@ public static class DependencyInjection
         services.AddDbContext<AppVetenaryContext>(c => 
         c.UseNpgsql(connectionString));
 
+        services.AddHttpContextAccessor();
+
         #region WatchDog Logs
         services.AddWatchDogServices(opt =>
         {

@@ -32,7 +32,7 @@ public class AuthManage:IAuthManage
     {
         var claims = new List<Claim>()
         {
-            new Claim(JwtRegisteredClaimNames.NameId,user.Email!),
+            new Claim(JwtRegisteredClaimNames.NameId, user.Id.ToString()),
             new Claim("email", user.Email!),
         };
         if (roles is not null)

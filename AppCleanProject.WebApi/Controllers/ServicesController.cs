@@ -30,7 +30,9 @@ namespace AppCleanProject.WebApi.Controllers
                 return BadRequest(new { message = "Id not valid" });
             }
 
-            await Mediator.SendAsync(request);
+            var requestCopy = request with { Id = request.Id };
+
+            await Mediator.SendAsync(requestCopy);
             return NoContent();
         }
 
