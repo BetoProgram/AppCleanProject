@@ -11,15 +11,27 @@ using Microsoft.IdentityModel.Tokens;
 using WatchDog;
 
 namespace Microsoft.Extensions.DependencyInjection;
+
 public static class DependencyInjection
 {
     public static IServiceCollection AddInfraestructureServices(this IServiceCollection services, IConfiguration configuration)
     {
         string connectionString = configuration.GetConnectionString("DefaultConnection")!;
-        services.AddDbContext<AppVetenaryContext>(c => 
+        services.AddDbContext<AppVetenaryContext>(c =>
         c.UseNpgsql(connectionString));
 
         services.AddHttpContextAccessor();
+
+        #region CORS
+        services.AddCors(opt =>
+        {
+            opt.AddPolicy("corspolicy", builder =>
+                builder.WithOrigins("*")
+                .AllowAnyMethod()
+                .AllowAnyOrigin()
+                .AllowAnyHeader());
+        });
+        #endregion
 
         #region WatchDog Logs
         services.AddWatchDogServices(opt =>
@@ -29,7 +41,7 @@ public static class DependencyInjection
             opt.DbDriverOption = WatchDog.src.Enums.WatchDogDbDriverEnum.PostgreSql;
         });
         #endregion
-        
+
         #region Authentication
         services.Configure<JwtSettings>(configuration.GetSection("JwtSettings"));
         var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["JwtSettings:Key"]!));
