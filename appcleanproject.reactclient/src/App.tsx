@@ -4,6 +4,7 @@ import HomePage from '@/pages/HomePage';
 import AppLayout from '@/layouts/AppLayout';
 import AuthLayout from '@/layouts/AuthLayout';
 import LoginPage from '@/pages/auth/LoginPage';
+import RegisterPage from './pages/auth/RegisterPage';
 
 function App() {
 
@@ -16,6 +17,7 @@ function App() {
 
       <Route element={ <AuthLayout /> }>
         <Route path='/login' element={ <LoginPage /> } />
+        <Route path='/register' element={<RegisterPage />} />
       </Route>
     </Routes>
     <Toaster />

@@ -10,7 +10,7 @@ using Mapster;
 namespace AppCleanProject.Application.Features.UserAuth.Commands;
 
 public record CreateUserCommand(string FirstName, string LastName, string Email,
-    string Password, string? PhoneNumber):ICommand;
+    string Password, string? PhoneNumber, int TipoRol):ICommand;
 
 public class CreateUserCommandValidator : AbstractValidator<CreateUserCommand>
 {
@@ -21,10 +21,14 @@ public class CreateUserCommandValidator : AbstractValidator<CreateUserCommand>
         RuleFor(x => x.FirstName).NotEmpty();
         RuleFor(x => x.LastName).NotEmpty();
         RuleFor(x => x.PhoneNumber).NotEmpty().MaximumLength(20);
+        RuleFor(x => x.TipoRol).NotEmpty().InclusiveBetween(2,3);
     }
 }
 
-public class CreateUserCommandHandler(IRepositoryAsync<Users> repositoryAsync, IAuthManage authManage)
+public class CreateUserCommandHandler(
+    IRepositoryAsync<Users> repositoryAsync,
+    IRepositoryAsync<Roles> repositoryRoleAsync,
+    IAuthManage authManage)
     :ICommandHandler<CreateUserCommand>
 {
     public async Task Handle(CreateUserCommand command, CancellationToken cancellationToken)
@@ -38,12 +42,16 @@ public class CreateUserCommandHandler(IRepositoryAsync<Users> repositoryAsync, I
                 new { message = "User is already registered" });
         }
 
+        var role = await repositoryRoleAsync.GetByIdAsync(command.TipoRol, cancellationToken);
+
         var hashPassword = authManage.HashUPassword(command.Password);
         var user = command.Adapt<Users>();
         user.PasswordHash = hashPassword;
         user.IsActive = true;
         user.CreatedAt = DateTime.UtcNow;
-        
+        user.Role.Add(role!);
+
         await repositoryAsync.AddAsync(user, cancellationToken);
+       
     }
 } 

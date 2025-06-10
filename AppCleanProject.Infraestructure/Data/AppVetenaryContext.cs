@@ -311,6 +311,19 @@ public partial class AppVetenaryContext : DbContext
                 .HasConstraintName("veterinaryschedules_veterinarian_id_fkey");
         });
 
+       /*  modelBuilder.Entity<UserRoles>(entity =>
+        {
+            entity.HasKey(e => new { e.UserId, e.RoleId });
+            entity.HasOne(ur => ur.User)
+              .WithMany(u => u.UserRoles)
+              .HasForeignKey(ur => ur.UserId);
+
+        // Define la relación de muchos a uno con Role
+        entity.HasOne(ur => ur.Role)
+              .WithMany(r => r.UserRoles)
+              .HasForeignKey(ur => ur.RoleId);
+        }); */
+
         OnModelCreatingPartial(modelBuilder);
     }
 

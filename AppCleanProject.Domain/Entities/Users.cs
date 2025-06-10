@@ -1,4 +1,5 @@
 ﻿namespace AppCleanProject.Domain.Entities;
+
 public partial class Users
 {
     public long Id { get; set; }
@@ -26,4 +27,5 @@ public partial class Users
     public virtual Veterinarians? Veterinarians { get; set; }
 
     public virtual ICollection<Roles> Role { get; set; } = new List<Roles>();
+    //public ICollection<UserRoles> UserRoles { get; set; }
 }
