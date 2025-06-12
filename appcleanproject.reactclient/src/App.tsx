@@ -5,19 +5,20 @@ import AppLayout from '@/layouts/AppLayout';
 import AuthLayout from '@/layouts/AuthLayout';
 import LoginPage from '@/pages/auth/LoginPage';
 import RegisterPage from './pages/auth/RegisterPage';
+import PrivateRoute from './components/PrivateRoute';
 
 function App() {
 
   return (
    <BrowserRouter>
     <Routes>
-      <Route element={ <AppLayout /> }>
+      <Route element={ <PrivateRoute><AppLayout /></PrivateRoute> }>
         <Route path='/' element={ <HomePage /> } />
       </Route>
 
       <Route element={ <AuthLayout /> }>
-        <Route path='/login' element={ <LoginPage /> } />
-        <Route path='/register' element={<RegisterPage />} />
+        <Route path='/auth/login' element={ <LoginPage /> } />
+        <Route path='/auth/register' element={<RegisterPage />} />
       </Route>
     </Routes>
     <Toaster />
