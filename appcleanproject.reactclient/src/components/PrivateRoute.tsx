@@ -10,10 +10,12 @@ type PrivateRouteProps = {
 export default function PrivateRoute({ children, ...rest }:PrivateRouteProps) {
      const navigate = useNavigate();
     globalRouter.navigate = navigate;
-    const verifyToken = useAuthStore((state) => state.verifyAuth);
+    const verifyAuth = useAuthStore((state) => state.verifyAuth);
     const isAuthenticated = useAuthStore((state) => state.isAuthenticated);
     const isValidToken = useAuthStore((state) => state.isValidToken);
-    verifyToken();
+    verifyAuth();
+
+    //console.log(isAuthenticated, isValidToken)
 
     return !isAuthenticated && !isValidToken ? <Navigate to="/auth/login" /> :children;
 }

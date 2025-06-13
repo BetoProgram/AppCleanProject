@@ -21,6 +21,7 @@ export const useAuthStore = create<AuthUserState>()((set) => ({
     setUser:(user) => {
         localStorage.setItem('user', JSON.stringify(user));
         set({ userAuth:user });
+        set({ isAuthenticated: true });
     },
     setToken:(token) => {
         set({ token });
@@ -32,9 +33,11 @@ export const useAuthStore = create<AuthUserState>()((set) => ({
         localStorage.removeItem('user');
     },
     verifyAuth: () => {
-        const token = localStorage.getItem("token");
-        if(token){
-            const validToken = tokenValid(token);
+        const objectString = localStorage.getItem("user")!;
+        const user = JSON.parse(objectString);
+
+        if(user.token){
+            const validToken = tokenValid(user.token);
 
             if(!validToken){
                 set({ isValidToken: false })

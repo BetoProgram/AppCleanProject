@@ -1,15 +1,11 @@
 import * as React from "react"
 import {
-  AudioWaveform,
-  BookOpen,
-  Bot,
-  Command,
-  Frame,
-  GalleryVerticalEnd,
-  Map,
-  PieChart,
-  Settings2,
-  SquareTerminal,
+  Clock,
+  BriefcaseMedical,
+  PawPrint,
+  ChartArea,
+  LayoutList,
+  Gem
 } from "lucide-react"
 
 import { NavMain } from "@/components/shared/nav-main"
@@ -27,109 +23,82 @@ import {
 // This is sample data.
 const data = {
   user: {
-    name: "shadcn",
+    name: "VeteSis",
     email: "m@example.com",
     avatar: "/avatars/shadcn.jpg",
   },
   teams: [
     {
-      name: "Acme Inc",
-      logo: GalleryVerticalEnd,
+      name: "VeteSis Inc",
+      logo: PawPrint,
       plan: "Enterprise",
-    },
-    {
-      name: "Acme Corp.",
-      logo: AudioWaveform,
-      plan: "Startup",
-    },
-    {
-      name: "Evil Corp.",
-      logo: Command,
-      plan: "Free",
-    },
+    }
   ],
   navMain: [
     {
-      title: "Playground",
+      title: "Mascotas",
       url: "#",
-      icon: SquareTerminal,
-      isActive: true,
+      icon: PawPrint,
       items: [
         {
-          title: "History",
+          title: "Ver Mascotas",
+          url: "/pets",
+        },
+        {
+          title: "Registro",
+          url: "/pets/register",
+        },
+      ],
+    },
+    {
+      title: "Veterinarios",
+      url: "#",
+      icon: BriefcaseMedical,
+      items: [
+        {
+          title: "Ver Veterinarios",
           url: "#",
         },
         {
-          title: "Starred",
-          url: "#",
-        },
-        {
-          title: "Settings",
+          title: "Asigna Horario de Trabajo",
           url: "#",
         },
       ],
     },
     {
-      title: "Models",
+      title: "Citas",
       url: "#",
-      icon: Bot,
+      icon: Clock,
       items: [
         {
-          title: "Genesis",
+          title: "Generar Cita",
           url: "#",
         },
         {
-          title: "Explorer",
+          title: "Confirmación Citas",
           url: "#",
         },
         {
-          title: "Quantum",
+          title: "Ver Citas",
           url: "#",
         },
-      ],
+      ]
     },
     {
-      title: "Documentation",
+      title: "Reportes",
       url: "#",
-      icon: BookOpen,
+      icon: ChartArea,
       items: [
         {
-          title: "Introduction",
+          title: "Citas",
           url: "#",
         },
         {
-          title: "Get Started",
+          title: "Mascotas",
           url: "#",
         },
         {
-          title: "Tutorials",
-          url: "#",
-        },
-        {
-          title: "Changelog",
-          url: "#",
-        },
-      ],
-    },
-    {
-      title: "Settings",
-      url: "#",
-      icon: Settings2,
-      items: [
-        {
-          title: "General",
-          url: "#",
-        },
-        {
-          title: "Team",
-          url: "#",
-        },
-        {
-          title: "Billing",
-          url: "#",
-        },
-        {
-          title: "Limits",
+          title: "Servicios",
           url: "#",
         },
       ],
@@ -137,19 +106,14 @@ const data = {
   ],
   projects: [
     {
-      name: "Design Engineering",
-      url: "#",
-      icon: Frame,
+      name: "Servicios",
+      url: "/catalog/services",
+      icon: LayoutList,
     },
     {
-      name: "Sales & Marketing",
-      url: "#",
-      icon: PieChart,
-    },
-    {
-      name: "Travel",
-      url: "#",
-      icon: Map,
+      name: "Especialidades",
+      url: "/catalog/specialities",
+      icon: Gem,
     },
   ],
 }

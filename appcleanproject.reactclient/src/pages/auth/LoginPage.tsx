@@ -26,6 +26,7 @@ export default function LoginPage() {
 
   const handleForm = async(formData:any) => {
     const user = await AuthService.login(formData);
+    console.log(user);
     if(user){
       setUser(user);
       navigate('/');
