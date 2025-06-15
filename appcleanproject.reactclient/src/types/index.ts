@@ -7,6 +7,15 @@ export interface AuthBase {
     phoneNumber:string;
 }
 
+export interface ServicesResponse {
+    id:number;
+    name:string;
+    description:string;
+    durationMinutes:number;
+    price:number;
+    isActive:boolean;
+}
+
 export type AuthRegisterRequest = Omit<AuthBase, 'token'>;
 export type AuthLoginRequest = Pick<AuthBase, 'email' | 'password'>;
 export type AuthUserResponse = Pick<AuthBase, 'email' | 'token'>;
