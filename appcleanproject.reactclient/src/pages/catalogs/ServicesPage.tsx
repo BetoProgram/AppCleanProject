@@ -8,11 +8,10 @@ import {
 } from "@/components/ui/card"
 
 import { Badge } from "@/components/ui/badge"
-import { PlusIcon } from "lucide-react"
-
 import { ServiceService } from "@/services/ServiceService";
 import { useQuery } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
+import { ServModalForm } from "@/components/servs/ServModalForm";
 
 export default function ServicesPage() {
   const { data: services } = useQuery({ queryKey: ['services'], queryFn: ServiceService.getAllServices });
@@ -21,10 +20,7 @@ export default function ServicesPage() {
     <div>
       <h2 className="text-2xl font-bold mb-4">Lista de Servicios</h2>
       <div className="mb-4">
-        <Button>
-          <PlusIcon />
-          Agregar nuevo servicio
-        </Button>
+        <ServModalForm />
       </div>
       <div className="grid grid-cols-3 gap-4">
         {services?.map((service) => (

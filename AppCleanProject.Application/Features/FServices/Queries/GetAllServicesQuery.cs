@@ -16,7 +16,7 @@ namespace AppCleanProject.Application.Features.FServices.Queries
         {
             var services =  await _readRepositoryAsync.ListAsync(cancellationToken);
 
-            return services.Adapt<List<ServiceResponseDto>>();
+            return services.OrderByDescending(x => x.Id).Adapt<List<ServiceResponseDto>>();
         }
     }
 }

@@ -36,7 +36,7 @@ export const useAuthStore = create<AuthUserState>()((set) => ({
         const objectString = localStorage.getItem("user")!;
         const user = JSON.parse(objectString);
 
-        if(user.token){
+        if(user){
             const validToken = tokenValid(user.token);
 
             if(!validToken){
