@@ -7,14 +7,14 @@ using System.Net;
 
 namespace AppCleanProject.Application.Features.FServices.Commands
 {
-    public record ActivateServiceCommand(int Id, bool IsActive): ICommand;
+    public record ActivateServiceCommand(int Id, bool isActive): ICommand;
 
     public class ActivateServiceCommandValidator: AbstractValidator<ActivateServiceCommand>
     {
         public ActivateServiceCommandValidator()
         {
             RuleFor(x => x.Id).NotEmpty();
-            RuleFor(x => x.IsActive).NotEmpty();
+            RuleFor(x => x.isActive).NotNull();
         }
     }
 
@@ -30,7 +30,7 @@ namespace AppCleanProject.Application.Features.FServices.Commands
             {
                 throw new CustomException(HttpStatusCode.NotFound, new { message = "Not found service" });
             }
-            serviceFoundDb.IsActive = command.IsActive;
+            serviceFoundDb.IsActive = command.isActive;
             await _repositoryAsync.UpdateAsync(serviceFoundDb);
         }
     }

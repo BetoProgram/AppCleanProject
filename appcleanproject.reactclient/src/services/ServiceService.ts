@@ -10,4 +10,12 @@ export class ServiceService{
     static async saveService(form:ServiceRequest){
         await api.post('/services', form);
     }
+
+    static async updateService(form:ServicesResponse){
+        await api.put(`/services/${form.id}`, form);
+    }
+
+    static async activateService(param:{ id:ServiceRequest['id'], isActive:boolean }){
+        await api.patch(`/services/activate`, param);
+    }
 }

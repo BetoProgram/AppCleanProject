@@ -36,9 +36,12 @@ namespace AppCleanProject.Application.Features.FServices.Commands
                 throw new CustomException(HttpStatusCode.NotFound, new {  message = "Not found service" });
             }
 
-            var service = command.Adapt<Services>();
+            serviceFoundDb.Name = command.Name;
+            serviceFoundDb.Description = command.Description;
+            serviceFoundDb.DurationMinutes = command.DurationMinutes;
+            serviceFoundDb.Price = command.Price;
 
-            await _repositoryAsync.UpdateAsync(service);
+            await _repositoryAsync.UpdateAsync(serviceFoundDb);
         }
     }
 }

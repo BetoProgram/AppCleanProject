@@ -8,7 +8,7 @@ export interface AuthBase {
 }
 
 export interface ServicesResponse {
-    id:number;
+    id?:number;
     name:string;
     description:string;
     durationMinutes:number;
@@ -16,7 +16,7 @@ export interface ServicesResponse {
     isActive:boolean;
 }
 
-export type ServiceRequest = Omit<ServicesResponse, 'id' | 'isActive'>;
+export type ServiceRequest = Omit<ServicesResponse, 'isActive'>;
 
 export type AuthRegisterRequest = Omit<AuthBase, 'token'>;
 export type AuthLoginRequest = Pick<AuthBase, 'email' | 'password'>;

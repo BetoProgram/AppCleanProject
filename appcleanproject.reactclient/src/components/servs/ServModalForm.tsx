@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import React,{ useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { Button } from "@/components/ui/button"
 import {
@@ -17,12 +17,27 @@ import { Label } from "@/components/ui/label"
 import { PlusIcon } from "lucide-react"
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { ServiceService } from '@/services/ServiceService'
-import type { ServiceRequest } from '@/types'
+import type { ServiceRequest, ServicesResponse } from '@/types'
+
+interface ServModalFormProps {
+  service?: ServicesResponse,
+  setService: React.Dispatch<React.SetStateAction<ServicesResponse | null>>
+}
 
 
-export function ServModalForm() {
+export function ServModalForm({ service, setService }: ServModalFormProps) {
+
+  const initialForm: ServiceRequest = {
+    id: 0,
+    name: "",
+    description: "",
+    durationMinutes: 0,
+    price: 0
+  }
+
   const [isOpen, setIsOpen] = useState(false);
-
+  const [ edit, setEdit ] = useState(false);
+  const { register,reset,handleSubmit, setValue, formState: { errors } } = useForm({ defaultValues: initialForm });
   const queryClient = useQueryClient();
 
   const { mutate } = useMutation({
@@ -37,17 +52,43 @@ export function ServModalForm() {
     }
   });
 
-  const initialForm: ServiceRequest = {
-    name: "",
-    description: "",
-    durationMinutes: 0,
-    price: 0
+  const { mutate:updateMutate } = useMutation({
+    mutationFn: ServiceService.updateService,
+    onSuccess() {
+      setIsOpen(false);
+      setEdit(false);
+      reset();
+      queryClient.invalidateQueries({ queryKey:['services'] });
+    },
+    onError(error) {
+      alert(error)
+    }
+  });
+
+  useEffect(() => {
+    if(service){
+      setIsOpen(true);
+      setValue("id", service.id);
+      setValue("name", service.name);
+      setValue("description", service.description);
+      setValue("durationMinutes", service.durationMinutes);
+      setValue("price", service.price);
+
+      setEdit(true);
+      setService(null);
+    }
+  },[service])
+
+  const closeDialog = () => {
+    reset();
   }
 
-  const { register,reset,handleSubmit, formState: { errors } } = useForm({ defaultValues: initialForm });
-
   const handleForm = (formData: any) => {
-    mutate(formData);
+    if(edit){
+      updateMutate(formData);
+    }else{
+      mutate(formData);
+    }
   }
 
   return (
@@ -60,6 +101,7 @@ export function ServModalForm() {
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px]">
         <form onSubmit={handleSubmit(handleForm)}>
+          <Input type="hidden" { ...register('id') } />
           <DialogHeader>
             <DialogTitle>Nuevo Servicio</DialogTitle>
             <DialogDescription>
@@ -98,7 +140,7 @@ export function ServModalForm() {
 
             <div className="grid gap-3">
               <Label htmlFor="price">Precio</Label>
-              <Input type="text" id="price" {...register('price', { required: 'Precio es requerido' })}  />
+              <Input type="number" id="price"step="any" {...register('price', { required: 'Precio es requerido' })}  />
               {errors.price && (
                 <p className="text-xs text-red-600">
                   {errors.price.message}
@@ -108,7 +150,7 @@ export function ServModalForm() {
           </div>
           <DialogFooter className="mt-5">
             <DialogClose asChild>
-              <Button onClick={() => reset()} variant="outline">Cancelar</Button>
+              <Button onClick={closeDialog} variant="outline">Cancelar</Button>
             </DialogClose>
             <Button type="submit">Guardar cambios</Button>
           </DialogFooter>
