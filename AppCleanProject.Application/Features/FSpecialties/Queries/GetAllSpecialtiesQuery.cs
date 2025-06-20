@@ -15,6 +15,6 @@ public class GetAllSpecialtiesQueryHandler(IRepositoryAsync<Specialties> reposit
     public async Task<List<SpecialtiesResponseDto>> Handle(GetAllSpecialtiesQuery query, CancellationToken cancellationToken)
     {
         var specials = await repositoryAsync.ListAsync(cancellationToken);
-        return specials.Adapt<List<SpecialtiesResponseDto>>();
+        return specials.OrderByDescending(s => s.Id).Adapt<List<SpecialtiesResponseDto>>();
     }
 }
