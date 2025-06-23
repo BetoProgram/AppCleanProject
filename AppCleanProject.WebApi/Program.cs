@@ -21,9 +21,11 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+app.UseAuthentication();
+app.UseAuthorization();
 app.UseCors("corspolicy");
 app.UseMiddleware<ErrorHandlerMiddleware>();
-app.UseAuthorization();
+
 
 app.UseWatchDogExceptionLogger();
 app.UseWatchDog(config =>

@@ -7,6 +7,7 @@ using Cortex.Mediator.Queries;
 using Mapster;
 using Microsoft.AspNetCore.Http;
 using System.Net;
+using System.Security.Claims;
 
 namespace AppCleanProject.Application.Features.Pet.Queries
 {
@@ -16,7 +17,7 @@ namespace AppCleanProject.Application.Features.Pet.Queries
     {
         public async Task<List<PetsResponseDto>> Handle(GetPetsCustomerQuery query, CancellationToken cancellationToken)
         {
-            string userId = httpContextAccessor.HttpContext?.User.FindFirst("nameid")?.Value!;
+            string userId = httpContextAccessor.HttpContext?.User.FindFirst(ClaimTypes.NameIdentifier)?.Value!;
 
             if (string.IsNullOrEmpty(userId))
             {

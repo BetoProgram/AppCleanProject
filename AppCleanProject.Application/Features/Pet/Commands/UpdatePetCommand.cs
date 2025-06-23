@@ -6,6 +6,7 @@ using FluentValidation;
 using Mapster;
 using Microsoft.AspNetCore.Http;
 using System.Net;
+using System.Security.Claims;
 
 namespace AppCleanProject.Application.Features.Pet.Commands
 {
@@ -28,7 +29,7 @@ namespace AppCleanProject.Application.Features.Pet.Commands
     {
         public async Task Handle(UpdatePetCommand command, CancellationToken cancellationToken)
         {
-            string userId = httpContextAccessor.HttpContext?.User.FindFirst("nameid")?.Value!;
+            string userId = httpContextAccessor.HttpContext?.User.FindFirst(ClaimTypes.NameIdentifier)?.Value!;
 
             if (string.IsNullOrEmpty(userId))
             {
