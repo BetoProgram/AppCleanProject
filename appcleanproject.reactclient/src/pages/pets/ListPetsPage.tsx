@@ -56,7 +56,7 @@ export default function ListPetsPage() {
               
             </CardFooter>
             <div className="mt-auto flex justify-between pl-3 pr-3">
-                
+                <Button>Editar</Button>
             </div>
           </Card>
         ))}

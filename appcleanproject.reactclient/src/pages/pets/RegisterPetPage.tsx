@@ -45,6 +45,7 @@ export default function RegisterPetPage() {
     mutationFn: PetsService.savePet,
     onSuccess() {
       queryClient.invalidateQueries({ queryKey:['pets'] })
+      reset()
       navigate('/pets')
     }
   })

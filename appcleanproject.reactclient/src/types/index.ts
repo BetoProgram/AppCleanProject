@@ -39,6 +39,7 @@ export interface PetResponse {
 export type ServiceRequest = Omit<ServicesResponse, 'isActive'>;
 export type SpecialitiesRequest = Omit<SpecialitiesResponse, 'id'>;
 export type PetRequest = Omit<PetResponse, 'id' | 'ownerId' | 'createdAt'| 'updatedAt'>;
+export type PetUpdateRequest = Omit<PetResponse, 'ownerId' | 'createdAt'| 'updatedAt'>;
 
 export type AuthRegisterRequest = Omit<AuthBase, 'token'>;
 export type AuthLoginRequest = Pick<AuthBase, 'email' | 'password'>;
