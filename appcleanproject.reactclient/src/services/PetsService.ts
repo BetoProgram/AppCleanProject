@@ -12,6 +12,6 @@ export class PetsService {
     }
 
     static async updatePet(form:PetUpdateRequest){
-        await api.put('/pets', form);
+        await api.put(`/pets/${form.id}`, form);
     }
 }

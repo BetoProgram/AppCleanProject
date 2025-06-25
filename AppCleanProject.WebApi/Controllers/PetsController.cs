@@ -25,14 +25,14 @@ namespace AppCleanProject.WebApi.Controllers
             return Ok();
         }
 
-        [HttpPut]
+        [HttpPut("{id}")]
         public async Task<ActionResult> Update(long id, [FromBody] UpdatePetCommand request)
         {
-            if(id != request.id)
+            if(id != request.Id)
             {
                 return BadRequest(new { message = "Id not valid from pet" });
             }
-            var requestCopy = request with { id = request.id };
+            var requestCopy = request with { Id = request.Id };
 
             await Mediator.SendAsync(requestCopy);
             return Ok();

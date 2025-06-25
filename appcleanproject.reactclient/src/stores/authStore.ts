@@ -31,6 +31,7 @@ export const useAuthStore = create<AuthUserState>()((set) => ({
         set({ userAuth:null });
         set({ isAuthenticated:false });
         localStorage.removeItem('user');
+        localStorage.clear();
     },
     verifyAuth: () => {
         const objectString = localStorage.getItem("user")!;
@@ -38,6 +39,7 @@ export const useAuthStore = create<AuthUserState>()((set) => ({
 
         if(user){
             const validToken = tokenValid(user.token);
+            set({ userAuth:user });
 
             if(!validToken){
                 set({ isValidToken: false })

@@ -1,3 +1,4 @@
+import { Link, useNavigate } from "react-router-dom";
 import {
   Card,
   CardAction,
@@ -11,10 +12,14 @@ import {
 import { useQuery } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
 import { PetsService } from "@/services/PetsService";
-import { Link } from "react-router-dom";
 
 export default function ListPetsPage() {
+  const navigate = useNavigate();
   const { data: pets } = useQuery({ queryKey: ['pets'], queryFn: PetsService.getAllPets });
+
+  const goToUpdatePet = (pet:any) => {
+    navigate('/pets/updated',{ state: { pet: pet } });
+  }
 
   return (
     <div>
@@ -43,6 +48,9 @@ export default function ListPetsPage() {
                 <span className="font-medium">Raza:</span> {pet.breed}
               </div>
               <div className="line-clamp-1 flex gap-2">
+                <span className="font-medium">Fecha de Nacimiento:</span> {pet.dateOfBirth}
+              </div>
+              <div className="line-clamp-1 flex gap-2">
                 <span className="font-medium">Especie:</span> {pet.species}
                 <span className="font-medium">Genero:</span> {pet.gender}
               </div>
@@ -56,7 +64,9 @@ export default function ListPetsPage() {
               
             </CardFooter>
             <div className="mt-auto flex justify-between pl-3 pr-3">
-                <Button>Editar</Button>
+                <Button onClick={() => goToUpdatePet(pet)}>
+                  Editar
+                </Button>
             </div>
           </Card>
         ))}

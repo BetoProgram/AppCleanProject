@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { Controller, useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -156,6 +156,9 @@ export default function RegisterPetPage() {
         </div>
         <div className="grid grid-cols-2 gap-4 p-4">
           <Button type="submit">Guardar</Button>
+          <Button asChild>
+              <Link to="/pets">Regresar</Link>
+          </Button>
         </div>
       </form>
     </>

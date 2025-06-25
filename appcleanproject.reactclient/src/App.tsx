@@ -10,6 +10,7 @@ import RegisterPetPage from '@/pages/pets/RegisterPetPage';
 import LoginPage from '@/pages/auth/LoginPage';
 import ServicesPage from '@/pages/catalogs/ServicesPage';
 import SpecialitiesPage from '@/pages/catalogs/SpecialitiesPage';
+import UpdatePetPage from './pages/pets/UpdatePetPage';
 
 function App() {
 
@@ -20,6 +21,7 @@ function App() {
         <Route path='/' element={ <HomePage /> } />
         <Route path='/pets' element={ <ListPetsPage/> } />
         <Route path='/pets/register' element={ <RegisterPetPage /> } />
+        <Route path='/pets/updated' element={ <UpdatePetPage /> } />
         <Route path='/catalog/services' element={ <ServicesPage /> } />
         <Route path='/catalog/specialities' element={ <SpecialitiesPage /> } />
       </Route>

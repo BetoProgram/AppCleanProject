@@ -19,6 +19,7 @@ import {
   SidebarHeader,
   SidebarRail,
 } from "@/components/ui/sidebar"
+import { useAuthStore } from "@/stores/authStore"
 
 // This is sample data.
 const data = {
@@ -119,6 +120,10 @@ const data = {
 }
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+  const store = useAuthStore()
+
+  data.user.email = store.userAuth?.email!
+
   return (
     <Sidebar collapsible="icon" {...props}>
       <SidebarHeader>

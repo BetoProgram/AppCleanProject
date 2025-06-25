@@ -10,7 +10,7 @@ using System.Security.Claims;
 
 namespace AppCleanProject.Application.Features.Pet.Commands
 {
-    public record UpdatePetCommand(long id, string Name, string Species,
+    public record UpdatePetCommand(long Id, string Name, string Species,
         string? Breed, DateOnly? DateOfBirth, string? Gender, string? Characteristics, string? PhotoUrl): ICommand;
 
     public class UpdatePetCommandValidator:AbstractValidator<UpdatePetCommand>
@@ -37,7 +37,7 @@ namespace AppCleanProject.Application.Features.Pet.Commands
                     new { message = "User not Authenticated" });
             }
 
-            var petFoundDb = await repositoryAsync.GetByIdAsync(command.id, cancellationToken);
+            var petFoundDb = await repositoryAsync.GetByIdAsync(command.Id, cancellationToken);
 
             if (petFoundDb == null)
             {
@@ -45,7 +45,7 @@ namespace AppCleanProject.Application.Features.Pet.Commands
                     new { message = "Not found Pet" });
             }
 
-            var pet = command.Adapt<Pets>();
+            Pets pet = command.Adapt(petFoundDb);
 
             await repositoryAsync.UpdateAsync(pet, cancellationToken);
         }

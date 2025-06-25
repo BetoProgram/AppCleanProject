@@ -36,7 +36,7 @@ export default function RegisterPage() {
     const handleForm = async (formData: any) => {
         await AuthService.register(formData).then(() => {
             toast("Se ha registrado correctamente el usuario");
-            navigate('/login');
+            navigate('/auth/login');
         });
     }
 
