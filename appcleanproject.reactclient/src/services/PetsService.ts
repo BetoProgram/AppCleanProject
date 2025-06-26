@@ -14,4 +14,8 @@ export class PetsService {
     static async updatePet(form:PetUpdateRequest){
         await api.put(`/pets/${form.id}`, form);
     }
+
+    static async removePet(id:PetResponse['id']){
+        await api.delete(`/pets/${id}`);
+    }
 }

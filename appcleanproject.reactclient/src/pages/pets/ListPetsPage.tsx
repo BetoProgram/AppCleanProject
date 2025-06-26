@@ -9,16 +9,34 @@ import {
 } from "@/components/ui/card"
 
 //import { Badge } from "@/components/ui/badge"
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
 import { PetsService } from "@/services/PetsService";
+import AlertOpenDialog from "@/components/shared/alert-confirm-dialog";
+import type { PetResponse } from "@/types";
 
 export default function ListPetsPage() {
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
   const { data: pets } = useQuery({ queryKey: ['pets'], queryFn: PetsService.getAllPets });
+
+  const {mutate:deleteMutate} = useMutation({
+    mutationFn: PetsService.removePet,
+    onSuccess(){
+      queryClient.invalidateQueries({ queryKey:['pets'] })
+    },
+    onError(){
+
+    }
+  });
+
 
   const goToUpdatePet = (pet:any) => {
     navigate('/pets/updated',{ state: { pet: pet } });
+  }
+
+  const confirmation = (id:PetResponse['id']) => {
+      deleteMutate(id);
   }
 
   return (
@@ -67,10 +85,12 @@ export default function ListPetsPage() {
                 <Button onClick={() => goToUpdatePet(pet)}>
                   Editar
                 </Button>
+                <AlertOpenDialog onConfirm={() => confirmation(pet.id)} key={pet.id} />
             </div>
           </Card>
         ))}
       </div>
+      
     </div>
 
   )
