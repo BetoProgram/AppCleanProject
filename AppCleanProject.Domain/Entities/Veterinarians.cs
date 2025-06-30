@@ -11,6 +11,7 @@ public partial class Veterinarians
     public string? Bio { get; set; }
 
     public string? PhotoUrl { get; set; }
+    public bool Activate { get; set; }
 
     public virtual ICollection<Appointments> Appointments { get; set; } = new List<Appointments>();
 

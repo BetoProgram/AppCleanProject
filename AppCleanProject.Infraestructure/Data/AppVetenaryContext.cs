@@ -266,6 +266,7 @@ public partial class AppVetenaryContext : DbContext
                 .ValueGeneratedNever()
                 .HasColumnName("id");
             entity.Property(e => e.Bio).HasColumnName("bio");
+            entity.Property(e => e.Activate).HasColumnName("activate");
             entity.Property(e => e.LicenseNumber)
                 .HasMaxLength(50)
                 .HasColumnName("license_number");
